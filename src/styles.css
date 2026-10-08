@@ -97,6 +97,7 @@
 .ak-seg__btn:hover { color: var(--ak-ink); }
 .ak-seg__btn[aria-pressed="true"] { background: var(--ak-surface); color: var(--ak-ink); outline: 1px solid var(--ak-line); }
 .ak-seg__btn:disabled { opacity: 0.5; cursor: default; }
+@media (max-width: 640px) { .ak-seg__btn { min-height: 44px; } }
 
 /* Badge */
 .ak-badge { display: inline-flex; align-items: center; min-height: 22px; padding: 0 8px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; background: var(--ak-ground); color: var(--ak-muted); border: 1px solid var(--ak-line); }
@@ -152,7 +153,7 @@
 .ak-menu > summary { list-style: none; }
 .ak-menu > summary::-webkit-details-marker { display: none; }
 .ak-menu__list { position: absolute; right: 0; top: calc(100% + 4px); z-index: 20; min-width: 200px; padding: 4px; background: var(--ak-surface); border: 1px solid var(--ak-line); border-radius: var(--ak-radius); display: grid; }
-.ak-menu__item { display: block; width: 100%; text-align: left; padding: 10px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--ak-ink); font: inherit; text-decoration: none; cursor: pointer; }
+.ak-menu__item { display: block; width: 100%; min-height: 44px; text-align: left; padding: 10px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--ak-ink); font: inherit; text-decoration: none; cursor: pointer; }
 .ak-menu__item:hover { background: var(--ak-ground); }
 
 /* Page and section headers */
