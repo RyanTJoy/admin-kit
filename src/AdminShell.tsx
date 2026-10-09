@@ -1,7 +1,7 @@
 'use client'
 import type { ReactNode } from 'react'
-import { brandVars, type Brand } from './brand'
-import { KitLink, LinkContext, type LinkComponent } from './link'
+import { brandVars, type Brand } from './brand.js'
+import { KitLink, LinkContext, type LinkComponent } from './link.js'
 
 export type NavItem = { href: string; label: string; external?: boolean }
 

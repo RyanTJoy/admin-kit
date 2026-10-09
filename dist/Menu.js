@@ -1,7 +1,7 @@
 'use client';
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef } from 'react';
-import { KitLink } from './link';
+import { KitLink } from './link.js';
 export function Menu({ label = 'More', children }) {
     const ref = useRef(null);
     useEffect(() => {

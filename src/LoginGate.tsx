@@ -1,7 +1,7 @@
 'use client'
 import { useState, type FormEvent } from 'react'
-import { Button } from './Button'
-import { Field, Input } from './Field'
+import { Button } from './Button.js'
+import { Field, Input } from './Field.js'
 
 export function LoginGate({
   title,

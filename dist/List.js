@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { cx } from './cx';
+import { cx } from './cx.js';
 export function List({ ordered = false, className, children }) {
     const Tag = ordered ? 'ol' : 'ul';
     return _jsx(Tag, { className: cx('ak-list', className), children: children });

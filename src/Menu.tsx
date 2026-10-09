@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, type ComponentProps, type ReactNode } from 'react'
-import { KitLink } from './link'
+import { KitLink } from './link.js'
 
 export function Menu({ label = 'More', children }: { label?: string; children: ReactNode }) {
   const ref = useRef<HTMLDetailsElement>(null)

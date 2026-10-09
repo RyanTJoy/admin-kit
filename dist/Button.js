@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { cx } from './cx';
+import { cx } from './cx.js';
 export function buttonClass(variant = 'secondary', size = 'md', extra) {
     return cx('ak-btn', `ak-btn--${variant}`, `ak-btn--${size}`, extra);
 }

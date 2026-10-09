@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { cx } from './cx'
+import { cx } from './cx.js'
 
 export function List({ ordered = false, className, children }: { ordered?: boolean; className?: string; children: ReactNode }) {
   const Tag = ordered ? 'ol' : 'ul'

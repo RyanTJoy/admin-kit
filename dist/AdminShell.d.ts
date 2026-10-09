@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import { type Brand } from './brand';
-import { type LinkComponent } from './link';
+import { type Brand } from './brand.js';
+import { type LinkComponent } from './link.js';
 export type NavItem = {
     href: string;
     label: string;

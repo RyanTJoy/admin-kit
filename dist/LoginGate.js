@@ -1,8 +1,8 @@
 'use client';
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
-import { Button } from './Button';
-import { Field, Input } from './Field';
+import { Button } from './Button.js';
+import { Field, Input } from './Field.js';
 export function LoginGate({ title, onSubmit, error, busy = false, }) {
     const [password, setPassword] = useState('');
     function submit(event) {

@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react'
-import { cx } from './cx'
+import { cx } from './cx.js'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'quiet' | 'danger'
 export type ButtonSize = 'sm' | 'md' | 'lg'

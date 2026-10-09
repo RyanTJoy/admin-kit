@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { cx } from './cx';
+import { cx } from './cx.js';
 export function Field({ label, hint, htmlFor, children }) {
     return (_jsxs("div", { className: "ak-field", children: [_jsxs("label", { className: "ak-label", htmlFor: htmlFor, children: [label, hint && _jsx("span", { className: "ak-hint", children: hint })] }), children] }));
 }

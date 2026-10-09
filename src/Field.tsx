@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from 'react'
-import { cx } from './cx'
+import { cx } from './cx.js'
 
 export function Field({ label, hint, htmlFor, children }: { label: string; hint?: string; htmlFor: string; children: ReactNode }) {
   return (

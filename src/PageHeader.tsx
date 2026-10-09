@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { KitLink } from './link'
+import { KitLink } from './link.js'
 
 export function PageHeader({
   eyebrow,

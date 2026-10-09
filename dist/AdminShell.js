@@ -1,7 +1,7 @@
 'use client';
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { brandVars } from './brand';
-import { KitLink, LinkContext } from './link';
+import { brandVars } from './brand.js';
+import { KitLink, LinkContext } from './link.js';
 function isCurrent(item, currentPath, homeHref) {
     if (item.external)
         return false;
