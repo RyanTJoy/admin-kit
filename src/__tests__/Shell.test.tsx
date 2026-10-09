@@ -45,9 +45,11 @@ describe('LoginGate', () => {
     rerender(<LoginGate title="CardBoard Admin" onSubmit={onSubmit} error="Wrong password. Try again." />)
     expect(screen.getByText(/wrong password/i)).toHaveClass('ak-error')
   })
-  it('disables Unlock when empty or busy', () => {
-    render(<LoginGate title="x" onSubmit={() => {}} busy />)
+  it('disables Unlock when the password is empty, and shows the busy label while unlocking', () => {
+    const { rerender } = render(<LoginGate title="x" onSubmit={() => {}} />)
     expect(screen.getByRole('button', { name: 'Unlock' })).toBeDisabled()
+    rerender(<LoginGate title="x" onSubmit={() => {}} busy />)
+    expect(screen.getByRole('button', { name: 'Unlocking…' })).toBeDisabled()
   })
 })
 
