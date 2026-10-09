@@ -143,6 +143,8 @@
 .ak-list { list-style: none; padding: 0; display: grid; gap: 8px; }
 .ak-row { display: grid; gap: 12px; padding: 14px 16px; background: var(--ak-surface); border: 1px solid var(--ak-line); border-radius: var(--ak-radius); grid-template-columns: 1fr; }
 .ak-row--accent { border-color: var(--ak-accent); }
+.ak-row__body { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
+.ak-row__content { min-width: 0; flex: 1; }
 @media (min-width: 641px) { .ak-row { grid-template-columns: minmax(0, 1fr) auto; align-items: center; } }
 .ak-row__title { font-size: 16px; font-weight: 600; line-height: 1.3; }
 .ak-row__meta { font-size: 13px; color: var(--ak-muted); }

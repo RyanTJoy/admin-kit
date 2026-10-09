@@ -25,9 +25,9 @@ export function Row({
 }) {
   return (
     <li className={cx('ak-row', tone === 'accent' && 'ak-row--accent')}>
-      <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', minWidth: 0 }}>
+      <div className="ak-row__body">
         {leading}
-        <div style={{ minWidth: 0, flex: 1 }}>
+        <div className="ak-row__content">
           {eyebrow && <p className="ak-eyebrow">{eyebrow}</p>}
           <div className="ak-row__title">{title}</div>
           {meta && <p className="ak-row__meta">{meta}</p>}
