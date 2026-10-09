@@ -6,7 +6,7 @@ any site code.
 
 ## Install (from a git tag, no registry)
 
-    npm install github:RyanTJoy/admin-kit#v1.0.0
+    npm install github:RyanTJoy/admin-kit#v1.0.1
 
 In the admin layout:
 

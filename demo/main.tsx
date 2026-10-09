@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { useState } from 'react'
 import '../src/styles.css'
 import {
-  ActionGroup, AdminShell, Badge, Banner, Button, Card, Checkbox, EmptyState, Field, Input, List, Menu, MenuItem,
+  ActionGroup, AdminShell, Badge, Banner, Button, Card, Checkbox, EmptyState, Field, Input, List, LoginGate, Menu, MenuItem,
   PageHeader, ProgressBar, Row, SectionHeader, Segmented, Select, Skeleton, Stat, StatRow, Textarea, type Brand,
 } from '../src/index'
 
@@ -68,6 +68,9 @@ function Demo() {
         </section>
         <EmptyState title="No breaks yet" body="Build a break, add its boxes and prices, then publish it." action={<Button variant="primary">Build the first break</Button>} />
         <Skeleton lines={4} label="Loading breaks" />
+        <Card title="Login gate" description="What an operator sees before unlocking.">
+          <LoginGate title="CardBoard Admin" onSubmit={() => {}} error="Wrong password. Try again." />
+        </Card>
         <div className="ak-actions"><Badge>Draft</Badge><Badge tone="accent">Filling now</Badge><Badge tone="ok">Live</Badge><Badge tone="warn">Needs cost</Badge><Badge tone="danger">Untracked</Badge></div>
       </div>
     </AdminShell>

@@ -118,6 +118,7 @@
 .ak-stat { background: var(--ak-surface); padding: 14px 16px; }
 .ak-stat__value { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-top: 4px; font-variant-numeric: tabular-nums; }
 .ak-stat__hint { font-size: 12px; color: var(--ak-muted); margin-top: 2px; }
+@media (max-width: 640px) { .ak-statrow { grid-template-columns: 1fr 1fr; } .ak-stat:last-child:nth-child(odd) { grid-column: 1 / -1; } }
 
 /* Progress */
 .ak-progress { height: 6px; border-radius: 999px; background: var(--ak-line); overflow: hidden; }
