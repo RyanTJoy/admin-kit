@@ -6,11 +6,18 @@ any site code.
 
 ## Install (from a git tag, no registry)
 
-    npm install github:RyanTJoy/admin-kit#v1.0.3
+    npm install github:RyanTJoy/admin-kit#v1.1.0
 
 In the admin layout:
 
     import '@ryantjoy/admin-kit/styles.css'
+
+All kit rules live in `@layer ak`. Sites using Tailwind v4 must declare the
+layer order before importing Tailwind so kit rules beat preflight but lose to
+utilities:
+
+    @layer theme, base, ak, components, utilities;
+    @import 'tailwindcss';
 
 Set the font once in the site's global CSS so the kit uses the loaded face:
 

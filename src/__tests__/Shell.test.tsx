@@ -35,6 +35,56 @@ describe('AdminShell', () => {
   })
 })
 
+const eight = [
+  { href: '/admin', label: 'Breaks' },
+  { href: '/admin/orders', label: 'Orders' },
+  { href: '/admin/seller', label: 'Card seller' },
+  { href: '/admin/checklist', label: 'Checklist odds' },
+  { href: '/admin/buying', label: 'Buying' },
+  { href: '/admin/money', label: 'Money' },
+  { href: '/admin/live', label: 'Live control' },
+  { href: 'https://admin.shopify.com', label: 'Shopify inventory ↗', external: true },
+]
+
+describe('AdminShell phone tab bar', () => {
+  it('pins the first 4 non-external items and puts the rest, external included, under More', () => {
+    render(<AdminShell brand={brand} nav={eight} currentPath="/admin">x</AdminShell>)
+    const phone = screen.getByRole('navigation', { name: 'Admin sections, phone' })
+    const sheet = phone.querySelector('.ak-tabbar__sheet') as HTMLElement
+    expect(sheet).not.toBeNull()
+    const pinned = Array.from(phone.querySelectorAll('a')).filter((a) => !sheet.contains(a))
+    expect(pinned.map((a) => a.textContent)).toEqual(['Breaks', 'Orders', 'Card seller', 'Checklist odds'])
+    expect(phone.querySelector('summary')).toHaveTextContent('More')
+    const inSheet = Array.from(sheet.querySelectorAll('a')).map((a) => a.textContent)
+    expect(inSheet).toEqual(['Buying', 'Money', 'Live control', 'Shopify inventory ↗'])
+    expect(sheet.querySelector('a[href="https://admin.shopify.com"]')).toHaveAttribute('target', '_blank')
+  })
+  it('pins exactly the items flagged phone', () => {
+    const flagged = eight.map((item) => (['Orders', 'Money', 'Live control'].includes(item.label) ? { ...item, phone: true } : item))
+    render(<AdminShell brand={brand} nav={flagged} currentPath="/admin">x</AdminShell>)
+    const phone = screen.getByRole('navigation', { name: 'Admin sections, phone' })
+    const sheet = phone.querySelector('.ak-tabbar__sheet') as HTMLElement
+    const pinned = Array.from(phone.querySelectorAll('a')).filter((a) => !sheet.contains(a))
+    expect(pinned.map((a) => a.textContent)).toEqual(['Orders', 'Money', 'Live control'])
+    expect(sheet.querySelectorAll('a')).toHaveLength(5)
+  })
+  it('marks More current when the current path is inside it', () => {
+    render(<AdminShell brand={brand} nav={eight} currentPath="/admin/money/2026">x</AdminShell>)
+    const phone = screen.getByRole('navigation', { name: 'Admin sections, phone' })
+    expect(phone.querySelector('summary')).toHaveAttribute('data-current', 'true')
+    expect(phone.querySelector('.ak-tabbar__sheet a[href="/admin/money"]')).toHaveAttribute('aria-current', 'page')
+  })
+  it('closes the More sheet on an outside click', async () => {
+    render(<AdminShell brand={brand} nav={eight} currentPath="/admin">x</AdminShell>)
+    const phone = screen.getByRole('navigation', { name: 'Admin sections, phone' })
+    const details = phone.querySelector('details') as HTMLDetailsElement
+    await userEvent.click(phone.querySelector('summary') as HTMLElement)
+    expect(details.open).toBe(true)
+    await userEvent.click(screen.getByRole('main'))
+    expect(details.open).toBe(false)
+  })
+})
+
 describe('LoginGate', () => {
   it('submits the password and shows errors', async () => {
     const onSubmit = vi.fn()

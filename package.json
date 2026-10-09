@@ -1,6 +1,6 @@
 {
   "name": "@ryantjoy/admin-kit",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Shared admin UI kit for the CardBoard, Omes, and Compass back offices.",
   "license": "UNLICENSED",
   "type": "module",
