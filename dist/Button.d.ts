@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react';
-export type ButtonVariant = 'primary' | 'secondary' | 'quiet' | 'danger';
+import { type ComponentProps } from 'react';
+export type ButtonVariant = 'primary' | 'secondary' | 'quiet' | 'ghost' | 'danger';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 export declare function buttonClass(variant?: ButtonVariant, size?: ButtonSize, extra?: string): string;
 export type ButtonProps = ComponentProps<'button'> & {
@@ -7,5 +7,6 @@ export type ButtonProps = ComponentProps<'button'> & {
     size?: ButtonSize;
     busy?: boolean;
     busyLabel?: string;
+    disabledReason?: string;
 };
-export declare function Button({ variant, size, busy, busyLabel, className, children, disabled, type, ...rest }: ButtonProps): import("react").JSX.Element;
+export declare const Button: import("react").ForwardRefExoticComponent<Omit<ButtonProps, "ref"> & import("react").RefAttributes<HTMLButtonElement>>;

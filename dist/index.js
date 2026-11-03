@@ -3,6 +3,7 @@ export { LoginGate } from './LoginGate.js';
 export { PageHeader } from './PageHeader.js';
 export { SectionHeader } from './SectionHeader.js';
 export { Button, buttonClass } from './Button.js';
+export { ConfirmDialog } from './ConfirmDialog.js';
 export { Checkbox, Field, Input, Select, Textarea } from './Field.js';
 export { Segmented } from './Segmented.js';
 export { Badge } from './Badge.js';

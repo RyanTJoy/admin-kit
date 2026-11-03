@@ -83,6 +83,22 @@ describe('AdminShell phone tab bar', () => {
     await userEvent.click(screen.getByRole('main'))
     expect(details.open).toBe(false)
   })
+  it('puts overflow items under a header More so tablets do not grow a scroller', () => {
+    render(<AdminShell brand={brand} nav={eight} currentPath="/admin">x</AdminShell>)
+    const top = screen.getByRole('navigation', { name: 'Admin sections' })
+    const compact = top.querySelector('.ak-nav__compact') as HTMLElement
+    const sheet = compact.querySelector('.ak-menu__list') as HTMLElement
+    const pinned = Array.from(compact.querySelectorAll('a')).filter((a) => !sheet.contains(a))
+    expect(pinned.map((a) => a.textContent)).toEqual(['Breaks', 'Orders', 'Card seller', 'Checklist odds'])
+    expect(compact.querySelector('summary')).toHaveTextContent('More')
+    expect(Array.from(sheet.querySelectorAll('a')).map((a) => a.textContent)).toEqual([
+      'Buying',
+      'Money',
+      'Live control',
+      'Shopify inventory ↗',
+    ])
+    expect(top.querySelector('.ak-nav__full')?.querySelectorAll('a')).toHaveLength(8)
+  })
 })
 
 describe('LoginGate', () => {
@@ -100,6 +116,14 @@ describe('LoginGate', () => {
     expect(screen.getByRole('button', { name: 'Unlock' })).toBeDisabled()
     rerender(<LoginGate title="x" onSubmit={() => {}} busy />)
     expect(screen.getByRole('button', { name: 'Unlocking…' })).toBeDisabled()
+  })
+  it('includes a hidden username field for password managers', () => {
+    const { container } = render(<LoginGate title="CardBoard Admin" onSubmit={() => {}} />)
+    const username = container.querySelector('input[name="username"]') as HTMLInputElement
+    expect(username).toHaveAttribute('autocomplete', 'username')
+    expect(username).toHaveAttribute('aria-hidden', 'true')
+    expect(username.value).toBe('admin')
+    expect(username).toHaveClass('ak-login__username')
   })
 })
 

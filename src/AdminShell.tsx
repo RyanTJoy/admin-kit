@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode, type RefObject } from 'react'
 import { brandVars, type Brand } from './brand.js'
 import { KitLink, LinkContext, type LinkComponent } from './link.js'
 
@@ -9,6 +9,20 @@ function isCurrent(item: NavItem, currentPath: string, homeHref: string): boolea
   if (item.external) return false
   if (item.href === homeHref) return currentPath === homeHref
   return currentPath === item.href || currentPath.startsWith(item.href + '/')
+}
+
+function useCloseDetails(ref: RefObject<HTMLDetailsElement | null>, resetKey: string) {
+  useEffect(() => {
+    function onDocClick(event: MouseEvent) {
+      const el = ref.current
+      if (el && el.open && !el.contains(event.target as Node)) el.open = false
+    }
+    document.addEventListener('click', onDocClick)
+    return () => document.removeEventListener('click', onDocClick)
+  }, [ref])
+  useEffect(() => {
+    if (ref.current) ref.current.open = false
+  }, [resetKey, ref])
 }
 
 export function AdminShell({
@@ -28,17 +42,9 @@ export function AdminShell({
 }) {
   const homeHref = nav[0]?.href ?? '/'
   const moreRef = useRef<HTMLDetailsElement>(null)
-  useEffect(() => {
-    function onDocClick(event: MouseEvent) {
-      const el = moreRef.current
-      if (el && el.open && !el.contains(event.target as Node)) el.open = false
-    }
-    document.addEventListener('click', onDocClick)
-    return () => document.removeEventListener('click', onDocClick)
-  }, [])
-  useEffect(() => {
-    if (moreRef.current) moreRef.current.open = false
-  }, [currentPath])
+  const tabletMoreRef = useRef<HTMLDetailsElement>(null)
+  useCloseDetails(moreRef, currentPath)
+  useCloseDetails(tabletMoreRef, currentPath)
   const internal = nav.filter((item) => !item.external)
   const flagged = internal.filter((item) => item.phone)
   const pinned = (flagged.length > 0 ? flagged : internal).slice(0, 4)
@@ -69,7 +75,20 @@ export function AdminShell({
             {primaryAction}
           </div>
           <nav aria-label="Admin sections" className="ak-nav">
-            {nav.map((item) => renderLink(item, 'ak-nav__link'))}
+            <div className="ak-nav__full">
+              {nav.map((item) => renderLink(item, 'ak-nav__link'))}
+            </div>
+            <div className="ak-nav__compact">
+              {pinned.map((item) => renderLink(item, 'ak-nav__link'))}
+              {rest.length > 0 && (
+                <details ref={tabletMoreRef} className="ak-nav__more">
+                  <summary className="ak-nav__link" data-current={restCurrent ? 'true' : undefined}>More</summary>
+                  <div className="ak-menu__list" role="menu">
+                    {rest.map((item) => renderLink(item, 'ak-menu__item'))}
+                  </div>
+                </details>
+              )}
+            </div>
           </nav>
         </header>
         <main className="ak-page">{children}</main>

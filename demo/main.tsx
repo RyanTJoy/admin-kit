@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { useState } from 'react'
 import '../src/styles.css'
 import {
-  ActionGroup, AdminShell, Badge, Banner, Button, Card, Checkbox, EmptyState, Field, Input, List, LoginGate, Menu, MenuItem,
+  ActionGroup, AdminShell, Badge, Banner, Button, Card, Checkbox, ConfirmDialog, EmptyState, Field, Input, List, LoginGate, Menu, MenuItem,
   PageHeader, ProgressBar, Row, SectionHeader, Segmented, Select, Skeleton, Stat, StatRow, Textarea, type Brand,
 } from '../src/index'
 
@@ -13,30 +13,48 @@ const BRANDS: Record<string, Brand> = {
   omes: { name: "O.M.E's Card Shop", tagline: 'Operations', accent: '#7c2d12', accentInk: '#ffffff' },
 }
 const NAV = [
-  { href: '/admin', label: 'Breaks' },
-  { href: '/admin/orders', label: 'Orders' },
+  { href: '/admin', label: 'Breaks', phone: true },
+  { href: '/admin/orders', label: 'Orders', phone: true },
+  { href: '/admin/seller', label: 'Card seller', phone: true },
+  { href: '/admin/checklist', label: 'Checklist odds' },
   { href: '/admin/purchases', label: 'Buying' },
   { href: '/admin/accounting', label: 'Money' },
-  { href: '/admin/live', label: 'Live control' },
+  { href: '/admin/live', label: 'Live control', phone: true },
+  { href: '/admin/board', label: 'Studio screen' },
+  { href: '/admin/leads', label: 'Leads' },
   { href: 'https://admin.shopify.com', label: 'Shopify inventory ↗', external: true },
 ]
 
 function Demo() {
   const [brand, setBrand] = useState<keyof typeof BRANDS>('cardboard')
   const [layout, setLayout] = useState<'focus' | 'stack'>('focus')
+  const [confirmOpen, setConfirmOpen] = useState(false)
   return (
-    <AdminShell brand={BRANDS[brand]} nav={NAV} currentPath="/admin" primaryAction={<Button variant="primary" size="sm">+ New break</Button>}>
+    <AdminShell brand={BRANDS[brand]} nav={NAV} currentPath="/admin" primaryAction={<Menu label="+ New" variant="primary" size="sm"><MenuItem href="/admin/new">Break</MenuItem><MenuItem href="/admin/seller">Batch of cards</MenuItem><MenuItem href="/admin/orders/new">Order</MenuItem><MenuItem href="/admin/purchases/new">Purchase</MenuItem></Menu>}>
       <PageHeader eyebrow="Kit demo" title="Every component" description="Switch the brand to see how one accent carries a whole back office." actions={<Segmented label="Brand" value={brand} options={Object.keys(BRANDS).map((k) => ({ value: k as keyof typeof BRANDS, label: BRANDS[k as keyof typeof BRANDS].name }))} onChange={setBrand} />} />
       <div className="ak-stack">
-        <Card title="Buttons" description="One primary per page. Everything else is secondary or quiet.">
+        <Card title="Buttons" description="One primary per page. Everything else is secondary, ghost, or danger.">
           <ActionGroup>
             <Button variant="primary">Go live</Button>
             <Button>Setup &amp; boxes</Button>
-            <Button variant="quiet">Preview ↗</Button>
+            <Button variant="ghost">Preview ↗</Button>
             <Button variant="danger">Remove</Button>
             <Button busy busyLabel="Updating…">Save</Button>
-            <Menu label="More"><MenuItem href="#">Accounting</MenuItem><MenuItem onClick={() => {}}>Return to selling</MenuItem></Menu>
+            <Button disabled disabledReason="Add a title first">Next</Button>
+            <Menu label="More"><MenuItem href="#">Accounting</MenuItem><MenuItem onClick={() => {}}>Reopen for sales</MenuItem></Menu>
+            <Menu label="⋯" icon ariaLabel="More actions" variant="ghost" size="sm">
+              <MenuItem onClick={() => setConfirmOpen(true)}>Mark paid</MenuItem>
+              <MenuItem danger onClick={() => setConfirmOpen(true)}>Delete</MenuItem>
+            </Menu>
           </ActionGroup>
+          <ConfirmDialog
+            open={confirmOpen}
+            title="Mark this order paid?"
+            description="The pay link closes and the draft order is marked paid."
+            confirmLabel="Mark paid"
+            onConfirm={() => setConfirmOpen(false)}
+            onCancel={() => setConfirmOpen(false)}
+          />
         </Card>
         <StatRow>
           <Stat label="Available to buy" value="2" />
@@ -66,6 +84,15 @@ function Demo() {
             <Row eyebrow="Break #040" title={<h3>Big League Chew</h3>} meta="12 of 15 spots sold" trailing={<Badge>On deck 1</Badge>} />
           </List>
         </section>
+        <div className="ak-table-wrap">
+          <table className="ak-table">
+            <thead><tr><th>Order</th><th>Buyer</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>CO-63Q3</td><td className="ak-muted">No buyer yet</td><td><Badge>Open</Badge></td></tr>
+              <tr><td>CO-12AB</td><td>Jordan</td><td><Badge tone="ok">Paid</Badge></td></tr>
+            </tbody>
+          </table>
+        </div>
         <EmptyState title="No breaks yet" body="Build a break, add its boxes and prices, then publish it." action={<Button variant="primary">Build the first break</Button>} />
         <Skeleton lines={4} label="Loading breaks" />
         <Card title="Login gate" description="What an operator sees before unlocking.">

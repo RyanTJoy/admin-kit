@@ -30,6 +30,17 @@ describe('Menu', () => {
     await userEvent.click(screen.getByText('outside'))
     expect(summary.closest('details')).not.toHaveAttribute('open')
   })
+  it('can render an icon trigger and a danger item', () => {
+    render(
+      <Menu label="⋯" icon ariaLabel="More actions" variant="ghost" size="sm">
+        <MenuItem danger onClick={() => {}}>Delete</MenuItem>
+      </Menu>,
+    )
+    const trigger = screen.getByLabelText('More actions')
+    expect(trigger).toHaveClass('ak-btn--ghost')
+    expect(trigger).toHaveClass('ak-btn--icon')
+    expect(screen.getByRole('menuitem', { name: 'Delete' })).toHaveClass('ak-menu__item--danger')
+  })
 })
 
 describe('ActionGroup', () => {
