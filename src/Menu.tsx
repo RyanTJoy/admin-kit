@@ -30,7 +30,7 @@ export function Menu({
   }, [])
   return (
     <details ref={ref} className="ak-menu">
-      <summary className={buttonClass(variant, size, icon ? 'ak-btn--icon' : undefined)} aria-label={ariaLabel}>
+      <summary role="button" className={buttonClass(variant, size, icon ? 'ak-btn--icon' : undefined)} aria-label={ariaLabel}>
         {label}
       </summary>
       <div className="ak-menu__list" role="menu">{children}</div>

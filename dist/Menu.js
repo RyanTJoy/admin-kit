@@ -15,7 +15,7 @@ export function Menu({ label = 'More', variant = 'secondary', size = 'md', icon 
         document.addEventListener('click', onDocClick);
         return () => document.removeEventListener('click', onDocClick);
     }, []);
-    return (_jsxs("details", { ref: ref, className: "ak-menu", children: [_jsx("summary", { className: buttonClass(variant, size, icon ? 'ak-btn--icon' : undefined), "aria-label": ariaLabel, children: label }), _jsx("div", { className: "ak-menu__list", role: "menu", children: children })] }));
+    return (_jsxs("details", { ref: ref, className: "ak-menu", children: [_jsx("summary", { role: "button", className: buttonClass(variant, size, icon ? 'ak-btn--icon' : undefined), "aria-label": ariaLabel, children: label }), _jsx("div", { className: "ak-menu__list", role: "menu", children: children })] }));
 }
 export function MenuItem({ href, danger = false, children, ...rest }) {
     const className = cx('ak-menu__item', danger && 'ak-menu__item--danger');
