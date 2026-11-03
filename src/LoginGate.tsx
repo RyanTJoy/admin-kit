@@ -22,6 +22,16 @@ export function LoginGate({
   return (
     <form onSubmit={submit} className="ak-login">
       <h1 className="ak-login__title">{title}</h1>
+      <input
+        className="ak-login__username"
+        type="text"
+        name="username"
+        autoComplete="username"
+        value="admin"
+        readOnly
+        tabIndex={-1}
+        aria-hidden="true"
+      />
       <Field label="Password" htmlFor="admin-password">
         <Input id="admin-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoFocus autoComplete="current-password" />
       </Field>
